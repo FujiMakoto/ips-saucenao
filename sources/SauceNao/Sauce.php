@@ -41,6 +41,28 @@ class _Sauce extends \IPS\Patterns\ActiveRecord
     public static $databasePrefix = '';
 
     /**
+     * Return the sauce of the item in question, if available
+     * @param \IPS\Content\Item $item
+     * @return _Sauce|null
+     */
+    public static function loadItemSauce( \IPS\Content\Item $item )
+    {
+        $app = $item::$application;
+        $id  = $item->id;
+
+        try
+        {
+            $s = \IPS\Db::i()->select( '*', static::$databaseTable, ['app=? AND item_id=?', $app, $id] )->first();
+        }
+        catch ( \UnderflowException $e )
+        {
+            return NULL;
+        }
+
+        return static::constructFromData( $s );
+    }
+
+    /**
      * Save the source of an item
      * @param array             $response
      * @param \IPS\Content\Item $item
