@@ -1,1 +1,10 @@
-[]
+[
+    {
+        "key": "snau_api_key",
+        "default": ""
+    },
+    {
+        "key": "snau_min_similarity",
+        "default": "75.0"
+    }
+]

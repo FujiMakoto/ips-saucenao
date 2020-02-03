@@ -1,1 +1,160 @@
-[]
+{
+    "saucenao_sauce": {
+        "name": "saucenao_sauce",
+        "columns": {
+            "id": {
+                "allow_null": false,
+                "auto_increment": true,
+                "binary": false,
+                "comment": "ID Number",
+                "decimals": null,
+                "default": null,
+                "length": 20,
+                "name": "id",
+                "type": "BIGINT",
+                "unsigned": true,
+                "values": [],
+                "zerofill": false
+            },
+            "index_id": {
+                "allow_null": true,
+                "auto_increment": false,
+                "binary": false,
+                "comment": "Index ID. Actual index name is stored as a language string.",
+                "decimals": null,
+                "default": "0",
+                "length": 3,
+                "name": "index_id",
+                "type": "TINYINT",
+                "unsigned": true,
+                "values": [],
+                "zerofill": false
+            },
+            "similarity": {
+                "allow_null": true,
+                "auto_increment": false,
+                "binary": false,
+                "comment": "Rounded similarity percentage (0-100)",
+                "decimals": null,
+                "default": "0",
+                "length": 3,
+                "name": "similarity",
+                "type": "TINYINT",
+                "unsigned": true,
+                "values": [],
+                "zerofill": false
+            },
+            "author_name": {
+                "allow_null": true,
+                "auto_increment": false,
+                "binary": false,
+                "comment": "Authors display name",
+                "decimals": null,
+                "default": null,
+                "length": 0,
+                "name": "author_name",
+                "type": "TEXT",
+                "unsigned": false,
+                "values": [],
+                "zerofill": false
+            },
+            "author_url": {
+                "allow_null": true,
+                "auto_increment": false,
+                "binary": false,
+                "comment": "URL to the author's profile page",
+                "decimals": null,
+                "default": null,
+                "length": 0,
+                "name": "author_url",
+                "type": "TEXT",
+                "unsigned": false,
+                "values": [],
+                "zerofill": false
+            },
+            "author_id": {
+                "allow_null": true,
+                "auto_increment": false,
+                "binary": false,
+                "comment": "Remote member ID of the author.",
+                "decimals": null,
+                "default": null,
+                "length": 20,
+                "name": "author_id",
+                "type": "BIGINT",
+                "unsigned": true,
+                "values": [],
+                "zerofill": false
+            },
+            "title": {
+                "allow_null": true,
+                "auto_increment": false,
+                "binary": false,
+                "comment": "Original title of the image",
+                "decimals": null,
+                "default": null,
+                "length": 0,
+                "name": "title",
+                "type": "TEXT",
+                "unsigned": false,
+                "values": [],
+                "zerofill": false
+            },
+            "url": {
+                "allow_null": true,
+                "auto_increment": false,
+                "binary": false,
+                "comment": "URL to the original source of the image",
+                "decimals": null,
+                "default": null,
+                "length": 0,
+                "name": "url",
+                "type": "TEXT",
+                "unsigned": false,
+                "values": [],
+                "zerofill": false
+            },
+            "app": {
+                "allow_null": false,
+                "auto_increment": false,
+                "binary": false,
+                "comment": "Application name",
+                "decimals": null,
+                "default": "",
+                "length": 255,
+                "name": "app",
+                "type": "VARCHAR",
+                "unsigned": false,
+                "values": [],
+                "zerofill": false
+            },
+            "item_id": {
+                "allow_null": false,
+                "auto_increment": false,
+                "binary": false,
+                "comment": "Item ID",
+                "decimals": null,
+                "default": "",
+                "length": 20,
+                "name": "item_id",
+                "type": "BIGINT",
+                "unsigned": true,
+                "values": [],
+                "zerofill": false
+            }
+        },
+        "indexes": {
+            "PRIMARY": {
+                "type": "primary",
+                "name": "PRIMARY",
+                "length": [
+                    null
+                ],
+                "columns": [
+                    "id"
+                ]
+            }
+        },
+        "collation": "utf8mb4_unicode_ci"
+    }
+}
