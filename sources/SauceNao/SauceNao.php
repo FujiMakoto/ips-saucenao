@@ -76,27 +76,6 @@ class _SauceNao extends Singleton
     }
 
     /**
-     * TODO: This method currently does not work. It doesn't seem like we can POST files correctly with IPS' CURL handler
-     * @param \IPS\File $file
-     * @return array
-     * @throws ApiKeyException
-     * @throws ApiLimitException
-     * @throws FileSizeException
-     * @throws SauceNaoException
-     */
-//    public function fromFile( \IPS\File $file )
-//    {
-//        /** @var Curl $request */
-//        $request = $this->endpoint->request();
-//
-//        $response = $request->post($file->contents());
-//        $this->checkStatusCode( $response->httpResponseCode );
-//        $this->checkResponse( $response->decodeJson() );
-//
-//        return $response->decodeJson();
-//    }
-
-    /**
      * Check the HTTP status code and throw an exception if an error occurred
      * @param int $statusCode
      * @throws ApiKeyException
