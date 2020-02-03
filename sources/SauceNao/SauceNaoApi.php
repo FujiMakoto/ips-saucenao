@@ -1,8 +1,13 @@
 <?php
 
-namespace IPS\saucenao;
+namespace IPS\saucenao\SauceNao;
 
 /* To prevent PHP errors (extending class does not exist) revealing path */
+if ( !defined( '\IPS\SUITE_UNIQUE_KEY' ) )
+{
+    header( ( isset( $_SERVER['SERVER_PROTOCOL'] ) ? $_SERVER['SERVER_PROTOCOL'] : 'HTTP/1.0' ) . ' 403 Forbidden' );
+    exit;
+}
 
 use IPS\Http\Request\Curl;
 use IPS\Http\Url;
@@ -13,17 +18,11 @@ use IPS\saucenao\Exception\FileSizeException;
 use IPS\saucenao\Exception\SauceNaoException;
 use IPS\Settings;
 
-if ( !defined( '\IPS\SUITE_UNIQUE_KEY' ) )
-{
-    header( ( isset( $_SERVER['SERVER_PROTOCOL'] ) ? $_SERVER['SERVER_PROTOCOL'] : 'HTTP/1.0' ) . ' 403 Forbidden' );
-    exit;
-}
-
 /**
  * SauceNao API library
  * @package	IPS\saucenao
  */
-class _SauceNao extends Singleton
+class _SauceNaoApi extends Singleton
 {
     const ENDPOINT = 'https://saucenao.com/search.php';
 
