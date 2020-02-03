@@ -153,6 +153,28 @@
                 "columns": [
                     "id"
                 ]
+            },
+            "item_id": {
+                "type": "key",
+                "name": "item_id",
+                "length": [
+                    null,
+                    171
+                ],
+                "columns": [
+                    "item_id",
+                    "app"
+                ]
+            },
+            "index_id": {
+                "type": "key",
+                "name": "index_id",
+                "columns": [
+                    "index_id"
+                ],
+                "length": [
+                    null
+                ]
             }
         },
         "collation": "utf8mb4_unicode_ci"
