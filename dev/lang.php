@@ -38,4 +38,9 @@ $lang = array(
     'snau_index_35' => 'Pawoo.net',
     'snau_index_36' => 'Madokami (Manga)',
     'snau_index_37' => 'MangaDex',
+
+    /**
+     * Image info panel
+     */
+    'snau_artist'   => 'Artist',
 );

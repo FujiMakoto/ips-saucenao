@@ -3,6 +3,9 @@
 namespace IPS\saucenao\SauceNao;
 
 /* To prevent PHP errors (extending class does not exist) revealing path */
+
+use IPS\Member;
+
 if ( !defined( '\IPS\SUITE_UNIQUE_KEY' ) )
 {
     header( ( isset( $_SERVER['SERVER_PROTOCOL'] ) ? $_SERVER['SERVER_PROTOCOL'] : 'HTTP/1.0' ) . ' 403 Forbidden' );
@@ -151,5 +154,64 @@ class _Sauce extends \IPS\Patterns\ActiveRecord
         // All done!
         $sauce->save();
         return $sauce;
+    }
+
+    /**
+     * Get the index title
+     * @param bool $includeIcon
+     * @return string
+     */
+    public function indexTitle( $includeIcon = TRUE )
+    {
+        $output = '';
+
+        // Do we have an icon we want to display?
+        $icon = NULL;
+        if ( $includeIcon )
+        {
+            switch ( $this->index_id )
+            {
+                case 5:
+                    $icon = \IPS\Theme::i()->resource( 'pixiv.png', 'saucenao', 'front' );
+                    break;
+                case 9:
+                case 25:
+                    $icon = \IPS\Theme::i()->resource( 'booru.png', 'saucenao', 'front' );
+                    break;
+                case 8:
+                    $icon = \IPS\Theme::i()->resource( 'nico.png', 'saucenao', 'front' );
+                    break;
+                case 34:
+                    $icon = \IPS\Theme::i()->resource( 'da.png', 'saucenao', 'front' );
+                    break;
+            }
+        }
+
+        if ( $icon )
+        {
+            $output = "<img src='{$icon}' class='snauSauceIcon'> &nbsp;";
+        }
+
+        return $output . Member::loggedIn()->language()->addToStack( "snau_index_{$this->index_id}" );
+    }
+
+    /**
+     * Get a link to the author's page if available, or just the authors name if not, or nothing if neither exist
+     * @return string|null
+     */
+    public function authorLink()
+    {
+        if ( !$this->author_name )
+        {
+            return NULL;
+        }
+
+        if ( $this->author_url )
+        {
+            return "<a href='{$this->author_url}' target='_blank' rel='noopener'>{$this->author_name}</a>";
+        }
+
+        // No author URL? Just return the name then
+        return $this->author_name;
     }
 }

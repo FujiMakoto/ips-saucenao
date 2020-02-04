@@ -1,3 +1,8 @@
 #elGalleryImageStats #snauAuthorStats {
 	margin-top: 15px;
 }
+
+img.snauSauceIcon {
+	max-width: 16px;
+	max-height: 16px;
+}

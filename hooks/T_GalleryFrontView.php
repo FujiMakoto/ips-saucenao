@@ -18,10 +18,16 @@ public static function hookData() {
     array (
       'selector' => '#elGalleryImageStats > div.ipsBox.ipsPad[data-role=\'imageStats\']',
       'type' => 'add_after',
-      'content' => '<div id="snauAuthorStats" class="ipsBox ipsPad">
-  	<div class="ipsType_center"></div>
-	<hr class="ipsHr">		
-</div>',
+      'content' => '{{if $sauce = \IPS\saucenao\SauceNao\Sauce::loadItemSauce($image)}}
+  <div id="snauAuthorStats" class="ipsBox ipsPad">
+      <div class="ipsType_center"><h2 class="ipsType_minorHeading">{$sauce->indexTitle()|raw}</h2></div>
+      <hr class="ipsHr">
+      {{if $sauce->authorLink()}}
+        <h2 class="ipsType_minorHeading">{lang="snau_artist"}</h2>
+        <p class="ipsType_reset ipsType_normal ipsType_blendLinks ipsType_light snau_authorLink">{$sauce->authorLink()|raw}</p>
+      {{endif}}
+  </div>
+{{endif}}',
     ),
   ),
 ), parent::hookData() );
