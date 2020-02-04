@@ -4,6 +4,7 @@ namespace IPS\saucenao\SauceNao;
 
 /* To prevent PHP errors (extending class does not exist) revealing path */
 
+use IPS\gallery\Image;
 use IPS\Member;
 
 if ( !defined( '\IPS\SUITE_UNIQUE_KEY' ) )
@@ -154,6 +155,42 @@ class _Sauce extends \IPS\Patterns\ActiveRecord
         // All done!
         $sauce->save();
         return $sauce;
+    }
+
+    /**
+     * Get all gallery images (or just their ID's) associated with this artist
+     * @param bool $idsOnly
+     * @return array[int]|array[Image]|array
+     */
+    public function galleryImages( bool $idsOnly = TRUE )
+    {
+        // If we don't have an author ID, we can't look up anything. Duh.
+        if ( !$this->author_id )
+        {
+            return [];
+        }
+
+        $s = \IPS\Db::i()->select(
+            'item_id', static::$databaseTable,
+            [ 'app=? AND index_id=? AND author_id=?', 'gallery', $this->index_id, $this->author_id ]
+        );
+
+        $ids = \iterator_to_array( $s );
+        if ( $idsOnly )
+        {
+            return $ids;
+        }
+
+        // We don't really use this, but keep it as an option for others
+        $s = \IPS\Db::i()->select('*', Image::$databaseTable, [\IPS\Db::i()->in(Image::$databaseColumnId, $ids)] );
+
+        // I miss Python generators.
+        $images = [];
+        foreach ( $s as $item )
+        {
+            $images[] = Image::constructFromData( $item );
+        }
+        return $images;
     }
 
     /**
