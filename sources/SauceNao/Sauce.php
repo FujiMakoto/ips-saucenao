@@ -214,4 +214,19 @@ class _Sauce extends \IPS\Patterns\ActiveRecord
         // No author URL? Just return the name then
         return $this->author_name;
     }
+
+    /**
+     * Make sure we have a valid URL before setting it
+     * @param $val
+     */
+    protected function set_author_url( $val )
+    {
+        if ( ( \substr( $val, 0, 7 ) !== 'http://' ) and ( \substr( $val, 0, 8 ) !== 'https://' ) )
+        {
+            $this->_data['author_url'] = NULL;
+            return;
+        }
+
+        $this->_data['author_url'] = $val;
+    }
 }
