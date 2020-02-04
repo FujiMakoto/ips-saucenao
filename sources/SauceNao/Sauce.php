@@ -45,6 +45,17 @@ class _Sauce extends \IPS\Patterns\ActiveRecord
     public static $databasePrefix = '';
 
     /**
+     * Cached gallery ID's
+     * @var array|null
+     */
+    protected $_galleryIds = NULL;
+
+    /**
+     * @var int|null
+     */
+    protected $_count = NULL;
+
+    /**
      * Return the sauce of the item in question, if available
      * @param \IPS\Content\Item $item
      * @return _Sauce|null
@@ -170,19 +181,27 @@ class _Sauce extends \IPS\Patterns\ActiveRecord
             return [];
         }
 
+        // Check for cached data
+        if ( ( $this->_galleryIds !== NULL ) and $idsOnly )
+        {
+            return $this->_galleryIds;
+        }
+
         $s = \IPS\Db::i()->select(
             'item_id', static::$databaseTable,
             [ 'app=? AND index_id=? AND author_id=?', 'gallery', $this->index_id, $this->author_id ]
         );
 
-        $ids = \iterator_to_array( $s );
+        $this->_galleryIds = \iterator_to_array( $s );
         if ( $idsOnly )
         {
-            return $ids;
+            return $this->_galleryIds;
         }
 
         // We don't really use this, but keep it as an option for others
-        $s = \IPS\Db::i()->select('*', Image::$databaseTable, [\IPS\Db::i()->in(Image::$databaseColumnId, $ids)] );
+        $s = \IPS\Db::i()->select(
+            '*', Image::$databaseTable, [ \IPS\Db::i()->in( Image::$databaseColumnId, $this->_galleryIds ) ]
+        );
 
         // I miss Python generators.
         $images = [];
@@ -191,6 +210,15 @@ class _Sauce extends \IPS\Patterns\ActiveRecord
             $images[] = Image::constructFromData( $item );
         }
         return $images;
+    }
+
+    /**
+     * Get the number of images this artist has in the gallery
+     * @return int
+     */
+    public function count()
+    {
+        return ( $this->_count !== NULL ) ? $this->_count : $this->_count = \count( $this->galleryImages() );
     }
 
     /**

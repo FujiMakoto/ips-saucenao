@@ -73,7 +73,7 @@ class _gallery extends \IPS\Dispatcher\Controller
         $table->tableTemplate = array( \IPS\Theme::i()->getTemplate( 'browse', 'gallery' ), 'imageTable' );
         $table->rowsTemplate = array( \IPS\Theme::i()->getTemplate( 'browse', 'gallery' ), $this->getTableRowsTemplate() );
 
-        \IPS\Output::i()->output = (string) $table;
+        \IPS\Output::i()->output = \IPS\Theme::i()->getTemplate( 'gallery' )->browse( $sauce, (string) $table );
 	}
 
     /**

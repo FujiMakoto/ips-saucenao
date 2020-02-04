@@ -43,4 +43,9 @@ $lang = array(
      * Image info panel
      */
     'snau_artist'   => 'Artist',
+
+    /**
+     * Gallery
+     */
+    'snau_count'    => 'This artist has {# [1:image][?:images]} in our gallery',
 );

@@ -1,0 +1,16 @@
+<ips:template parameters="$sauce, $table" />
+
+<div class="ipsPageHeader ipsClearfix ipsSpacer_bottom">
+    <h1 class="ipsType_pageTitle">{$sauce->author_name}</h1>
+    <div class="ipsType_richText ipsType_light">
+        <p>
+            {lang="snau_count" pluralize="$sauce->count()"}
+        </p>
+    </div>
+</div>
+
+{{if $table}}
+    <div class='ipsBox'>
+        {$table|raw}
+    </div>
+{{endif}}
