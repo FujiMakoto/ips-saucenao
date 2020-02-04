@@ -1,1 +1,8 @@
-[]
+{
+    "front": {
+        "sauce": {
+            "default_controller": "",
+            "protected": false
+        }
+    }
+}
