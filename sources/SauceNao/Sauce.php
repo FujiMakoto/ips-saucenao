@@ -25,6 +25,7 @@ if ( !defined( '\IPS\SUITE_UNIQUE_KEY' ) )
  * @property string|NULL $url URL to the original source of the image
  * @property string $app Application name
  * @property int $item_id Item ID
+ * @property int|NULL $illust_id Remote database ID of the original source image
  * @package	IPS\saucenao
  */
 class _Sauce extends \IPS\Patterns\ActiveRecord
@@ -121,6 +122,33 @@ class _Sauce extends \IPS\Patterns\ActiveRecord
         elseif ( isset( $data['source'] ) )
         {
             $sauce->title = $data['source'];
+        }
+
+        // Illustration ID
+        $illust_id = NULL;
+        switch ( $sauce->index_id )
+        {
+            case 5:
+            case 6:
+                $illust_id = $data['pixiv_id'];
+                break;
+            case 8:
+                $illust_id = $data['seiga_id'];
+                break;
+            case 10:
+                $illust_id = $data['drawr_id'];
+                break;
+            case 11:
+                $illust_id = $data['nijie_id'];
+                break;
+            case 34:
+                $illust_id = $data['da_id'];
+                break;
+        }
+
+        if ( $illust_id )
+        {
+            $sauce->illust_id = $illust_id;
         }
 
         // Author name
