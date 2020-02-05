@@ -41,6 +41,17 @@ $lang = array(
     'snau_index_37' => 'MangaDex',
 
     /**
+     * Settings
+     */
+    'menu__saucenao_saucenao'           => 'SauceNao',
+    'menu__saucenao_saucenao_settings'  => 'Settings',
+
+    'snau_api_settings'     => 'API Settings',
+    'snau_api_key'          => 'API key',
+    'snau_api_key_desc'     => 'You can register for an API key here: <br><a href="https://saucenao.com/user.php" target="_blank" rel="noopener">https://saucenao.com/user.php</a>',
+    'snau_min_similarity'   => 'Minimum similarity',
+
+    /**
      * Image info panel
      */
     'snau_artist'       => 'Artist',
