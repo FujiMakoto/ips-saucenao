@@ -26,6 +26,15 @@ public static function hookData() {
         <h2 class="ipsType_minorHeading">{lang="snau_artist"}</h2>
         <p class="ipsType_reset ipsType_normal ipsType_blendLinks ipsType_light snau_authorLink">{$sauce->authorLink()|raw}</p>
       {{endif}}
+      {{if $sauce->illust_id}}
+        <h2 class="ipsType_minorHeading" {{if $sauce->authorLink()}}style="padding-top: 15px;"{{endif}}>{lang="snau_illust_id"}</h2>
+        <p class="ipsType_reset ipsType_normal ipsType_blendLinks ipsType_light snau_authorLink">{$sauce->illust_id}</p>
+      {{endif}}
+      {{if $sauce->count() > 1}}
+        <div class="ipsType_center ipsPad">
+          <a href="{$sauce->url()}" class="ipsButton ipsButton_light ipsButton_verySmall ipsButton_fullWidth">{lang="snau_view" pluralize="$sauce->count() - 1"}</a>
+        </div>
+      {{endif}}
   </div>
 {{endif}}',
     ),
