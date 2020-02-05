@@ -27,6 +27,11 @@ class _gallery extends \IPS\Dispatcher\Controller
 	public function execute()
 	{
         \IPS\Output::i()->jsFiles = array_merge( \IPS\Output::i()->jsFiles, \IPS\Output::i()->js('front_browse.js', 'gallery' ) );
+        \IPS\Output::i()->breadcrumb = [];
+        \IPS\Output::i()->breadcrumb[] = [
+            \IPS\Http\Url::internal( "app=gallery&module=gallery&controller=browse", 'front', 'gallery' ),
+            \IPS\Member::loggedIn()->language()->addToStack( 'module__gallery_gallery' )
+        ];
 		parent::execute();
 	}
 
@@ -38,36 +43,35 @@ class _gallery extends \IPS\Dispatcher\Controller
 	protected function manage()
 	{
         \IPS\Output::i()->title = 'snau_gallery_title';
-        $url = \IPS\Http\Url::internal( 'app=saucenao&module=sauce&controller=gallery' )->setQueryString( 'image_id', \IPS\Request::i()->image_id );
 
-        // Load the gallery image
+        $index_id  = (int) \IPS\Request::i()->index;
+        $author_id = (int) \IPS\Request::i()->author;
+
+        // Get all other gallery images with this sauce
         try
         {
-            $image = Image::loadAndCheckPerms( \IPS\Request::i()->image_id );
+            $sauce = Sauce::loadLatest( $index_id, $author_id );
         }
-        catch ( \OutOfRangeException $e )
+        catch ( \UnderflowException $e )
         {
             \IPS\Output::i()->error( 'node_error', '2SNA201/1', 404 );
             return;
         }
 
-        // Load the images sauce entry
-        $sauce = Sauce::loadItemSauce( $image );
-        if ( !$sauce )
-        {
-            \IPS\Output::i()->error( 'node_error', '2SNA201/2', 404 );
-        }
+//        \IPS\Output::i()->breadcrumb[] = [ NULL, 'module__saucenao_sauce' ];
+//        \IPS\Output::i()->breadcrumb[] = [ NULL, "snau_index_{$sauce->index_id}" ];
+        \IPS\Output::i()->breadcrumb[] = [ NULL, $sauce->author_name ];
 
-        // Get all other gallery images with this sauce
         $sauceIds = $sauce->galleryImages();
         if ( !$sauceIds )
         {
-            \IPS\Output::i()->error( 'node_error', '2SNA201/3', 404 );
+            \IPS\Output::i()->error( 'node_error', '2SNA201/2', 404 );
+            return;
         }
 
         // Still here? Great! Let's build the table query
         $table = new \IPS\gallery\Image\Table(
-            'IPS\gallery\Image', $url, [ \IPS\Db::i()->in( 'image_id', $sauceIds ) ]
+            'IPS\gallery\Image', $sauce->url(), [ \IPS\Db::i()->in( 'image_id', $sauceIds ) ]
         );
         $table->limit = 50;
         $table->tableTemplate = array( \IPS\Theme::i()->getTemplate( 'browse', 'gallery' ), 'imageTable' );
