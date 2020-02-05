@@ -1,7 +1,8 @@
 <?php
 
 $lang = array(
-	'__app_saucenao'	=> "SauceNao",
+	'__app_saucenao'            => "SauceNao",
+    'module__saucenao_sauce'    => 'Sauce',
 
     /**
      * SauceNao indexes
@@ -42,10 +43,12 @@ $lang = array(
     /**
      * Image info panel
      */
-    'snau_artist'   => 'Artist',
+    'snau_artist'       => 'Artist',
+    'snau_illust_id'    => 'Illustration ID',
 
     /**
      * Gallery
      */
     'snau_count'    => 'This artist has {# [1:image][?:images]} in our gallery',
+    'snau_view'     => 'View {# other [1:image][?:images]} by this artist'
 );

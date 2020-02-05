@@ -4,6 +4,7 @@ namespace IPS\saucenao\SauceNao;
 
 /* To prevent PHP errors (extending class does not exist) revealing path */
 
+use IPS\Db;
 use IPS\gallery\Image;
 use IPS\Member;
 
@@ -68,12 +69,29 @@ class _Sauce extends \IPS\Patterns\ActiveRecord
 
         try
         {
-            $s = \IPS\Db::i()->select( '*', static::$databaseTable, ['app=? AND item_id=?', $app, $id] )->first();
+            $s = Db::i()->select( '*', static::$databaseTable, ['app=? AND item_id=?', $app, $id] )->first();
         }
         catch ( \UnderflowException $e )
         {
             return NULL;
         }
+
+        return static::constructFromData( $s );
+    }
+
+    /**
+     * Load the latest sauce entry for the provided artist
+     * @param int    $index_id
+     * @param int    $author_id
+     * @param string $app
+     * @return _Sauce
+     */
+    public static function loadLatest( int $index_id, int $author_id, $app='gallery' )
+    {
+        $s = Db::i()->select(
+            '*', static::$databaseTable, [ 'app=? AND index_id=? AND author_id=?', $app, $index_id, $author_id ],
+            'id DESC'
+        )->first();
 
         return static::constructFromData( $s );
     }
@@ -222,7 +240,7 @@ class _Sauce extends \IPS\Patterns\ActiveRecord
             return $this->_galleryIds;
         }
 
-        $s = \IPS\Db::i()->select(
+        $s = Db::i()->select(
             'item_id', static::$databaseTable,
             [ 'app=? AND index_id=? AND author_id=?', 'gallery', $this->index_id, $this->author_id ]
         );
@@ -234,8 +252,8 @@ class _Sauce extends \IPS\Patterns\ActiveRecord
         }
 
         // We don't really use this, but keep it as an option for others
-        $s = \IPS\Db::i()->select(
-            '*', Image::$databaseTable, [ \IPS\Db::i()->in( Image::$databaseColumnId, $this->_galleryIds ) ]
+        $s = Db::i()->select(
+            '*', Image::$databaseTable, [ Db::i()->in( Image::$databaseColumnId, $this->_galleryIds ) ]
         );
 
         // I miss Python generators.
