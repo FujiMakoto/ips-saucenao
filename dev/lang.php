@@ -49,6 +49,7 @@ $lang = array(
     /**
      * Gallery
      */
+    'snau_title'    => "%s's other works",
     'snau_count'    => 'This artist has {# [1:image][?:images]} in our gallery',
     'snau_view'     => 'View {# other [1:image][?:images]} by this artist'
 );

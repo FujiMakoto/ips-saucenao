@@ -6,6 +6,7 @@ namespace IPS\saucenao\modules\front\sauce;
 /* To prevent PHP errors (extending class does not exist) revealing path */
 
 use IPS\gallery\Image;
+use IPS\Member;
 use IPS\saucenao\SauceNao\Sauce;
 
 if ( !\defined( '\IPS\SUITE_UNIQUE_KEY' ) )
@@ -42,8 +43,6 @@ class _gallery extends \IPS\Dispatcher\Controller
 	 */
 	protected function manage()
 	{
-        \IPS\Output::i()->title = 'snau_gallery_title';
-
         $index_id  = (int) \IPS\Request::i()->index;
         $author_id = (int) \IPS\Request::i()->author;
 
@@ -58,8 +57,7 @@ class _gallery extends \IPS\Dispatcher\Controller
             return;
         }
 
-//        \IPS\Output::i()->breadcrumb[] = [ NULL, 'module__saucenao_sauce' ];
-//        \IPS\Output::i()->breadcrumb[] = [ NULL, "snau_index_{$sauce->index_id}" ];
+        \IPS\Output::i()->title = Member::loggedIn()->language()->addToStack( 'snau_title', TRUE, [ 'sprintf' => $sauce->author_name ] );
         \IPS\Output::i()->breadcrumb[] = [ NULL, $sauce->author_name ];
 
         $sauceIds = $sauce->galleryImages();
