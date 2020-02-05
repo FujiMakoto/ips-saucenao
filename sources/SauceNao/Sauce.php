@@ -329,4 +329,73 @@ class _Sauce extends \IPS\Patterns\ActiveRecord
 
         $this->_data['author_url'] = $val;
     }
+
+    /**
+     * @brief	Cached URLs
+     */
+    protected $_url	= [];
+
+    /**
+     * @brief	URL Base
+     */
+    public static $urlBase = 'app=saucenao&module=sauce&controller=gallery&index={index_id}&author={author_id}';
+
+    /**
+     * @brief	URL Base
+     */
+    public static $urlTemplate = 'snau_gallery';
+
+    /**
+     * @brief	SEO Title Column
+     */
+    public static $seoTitleColumn = ['index' => 'seo_index', 'author' => 'seo_author'];
+
+    /**
+     * Get URL
+     *
+     * @param	string|NULL		$action		Action
+     * @return	\IPS\Http\Url
+     * @throws	\BadMethodCallException
+     * @throws	\IPS\Http\Url\Exception
+     */
+    public function url( $action=NULL )
+    {
+        $_key	= md5( $action );
+
+        if( !isset( $this->_url[ $_key ] ) )
+        {
+            $seoTitleColumn = static::$seoTitleColumn;
+
+            try
+            {
+                $urlBase = \str_replace( '{index_id}', $this->index_id, static::$urlBase );
+                $urlBase = \str_replace( '{author_id}', $this->author_id, $urlBase );
+                $url = \IPS\Http\Url::internal(
+                    $urlBase, 'front', static::$urlTemplate,
+                    [ $this->seo_index, $this->seo_author ]
+                );
+            }
+            catch ( \IPS\Http\Url\Exception $e )
+            {
+                $indexTitle = \IPS\Lang::load( \IPS\Lang::defaultLanguage() )->get( "snau_index_{$this->index_id}" );
+                $indexSeo   = \IPS\Http\Url\Friendly::seoTitle( $indexTitle );
+                $authorSeo  = \IPS\Http\Url\Friendly::seoTitle( $this->author_name );
+
+                $this->seo_index  = $indexSeo;
+                $this->seo_author = $authorSeo;
+                $this->save();
+
+                return $this->url( $action );
+            }
+
+            $this->_url[ $_key ] = $url;
+
+            if ( $action )
+            {
+                $this->_url[ $_key ] = $this->_url[ $_key ]->setQueryString( 'do', $action );
+            }
+        }
+
+        return $this->_url[ $_key ];
+    }
 }

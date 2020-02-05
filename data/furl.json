@@ -1,0 +1,10 @@
+{
+  "topLevel": "",
+  "pages": {
+    "snau_gallery": {
+      "friendly": "gallery/sauce/{#index}-{?0}/{#author}-{?1}",
+      "real": "app=saucenao&module=sauce&controller=gallery",
+      "seoPagination": true
+    }
+  }
+}
