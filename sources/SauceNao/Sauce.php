@@ -86,6 +86,13 @@ class _Sauce extends \IPS\Patterns\ActiveRecord
      */
     public static function createFromResponse( array $response, \IPS\Content\Item $item )
     {
+        // Delete any existing entries
+        $existing = static::loadItemSauce( $item );
+        if ( $existing )
+        {
+            $existing->delete();
+        }
+
         $sauce = new static;
 
         // Save the item link
