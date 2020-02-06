@@ -135,7 +135,7 @@ class _Sauce extends \IPS\Patterns\ActiveRecord
         // Just kidding, make sure we meet our minimum similarity threshold first
         if ( $sauce->similarity < Settings::i()->snau_min_similarity )
         {
-            $sauce->save();
+            return $sauce->save();
         }
 
         // Original title
