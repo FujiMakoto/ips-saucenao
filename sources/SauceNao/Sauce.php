@@ -77,7 +77,8 @@ class _Sauce extends \IPS\Patterns\ActiveRecord
             return NULL;
         }
 
-        return static::constructFromData( $s );
+        $sauce = static::constructFromData( $s );
+        return $sauce->author_id ? $sauce : NULL;
     }
 
     /**
@@ -106,11 +107,7 @@ class _Sauce extends \IPS\Patterns\ActiveRecord
     public static function createFromResponse( array $response, \IPS\Content\Item $item )
     {
         // Delete any existing entries
-        $existing = static::loadItemSauce( $item );
-        if ( $existing )
-        {
-            $existing->delete();
-        }
+        \IPS\Db::i()->delete( static::$databaseTable, [ 'app=? AND item_id=?', 'gallery', $item->id ] );
 
         $sauce = new static;
 
