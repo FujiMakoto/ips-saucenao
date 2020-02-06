@@ -55,7 +55,7 @@ class _snauProcess extends \IPS\Task
 
         if ( $sleepUntil and ( \time() < $sleepUntil ) )
         {
-            return 'API limit exceeded! Waiting..';
+            return;
         }
 
         // Get some images to process
