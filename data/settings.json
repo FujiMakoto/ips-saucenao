@@ -5,6 +5,6 @@
     },
     {
         "key": "snau_min_similarity",
-        "default": "75.0"
+        "default": "75"
     }
 ]

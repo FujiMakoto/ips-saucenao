@@ -1,0 +1,42 @@
+TYPE: Sources
+CLASSNAME: ApiKeyException
+NAMESPACE: IPS\saucenao\Exception
+ID: 101
+PATH: Exception/ApiKeyException.php
+
+TYPE: Sources
+CLASSNAME: ApiLimitException
+NAMESPACE: IPS\saucenao\Exception
+ID: 102
+PATH: Exception/ApiLimitException.php
+
+TYPE: Sources
+CLASSNAME: FileSizeException
+NAMESPACE: IPS\saucenao\Exception
+ID: 103
+PATH: Exception/FileSizeException.php
+
+TYPE: Sources
+CLASSNAME: SauceNaoException
+NAMESPACE: IPS\saucenao\Exception
+ID: 104
+PATH: Exception/SauceNaoException.php
+
+TYPE: Sources
+CLASSNAME: Sauce
+NAMESPACE: IPS\saucenao\SauceNao
+ID: 105
+PATH: SauceNao/Sauce.php
+
+TYPE: Sources
+CLASSNAME: SauceNaoApi
+NAMESPACE: IPS\saucenao\SauceNao
+ID: 106
+PATH: SauceNao/SauceNaoApi.php
+
+TYPE: Modules
+CLASSNAME: gallery
+NAMESPACE: IPS\saucenao\modules\front\sauce
+ID: 201
+PATH: front/sauce/gallery.php
+

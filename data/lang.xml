@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<language>
+ <app key="saucenao" version="10000">
+  <word key="__app_saucenao" js="0">SauceNao</word>
+  <word key="module__saucenao_sauce" js="0">Sauce</word>
+  <word key="snau_index_0" js="0">H-Magazines</word>
+  <word key="snau_index_2" js="0">H-Game CG</word>
+  <word key="snau_index_3" js="0">DoujinshiDB</word>
+  <word key="snau_index_5" js="0">Pixiv</word>
+  <word key="snau_index_6" js="0">Pixiv (Historical)</word>
+  <word key="snau_index_8" js="0">Nico Nico Seiga</word>
+  <word key="snau_index_9" js="0">Danbooru</word>
+  <word key="snau_index_10" js="0">drawr Images</word>
+  <word key="snau_index_11" js="0">Nijie Images</word>
+  <word key="snau_index_12" js="0">Yande.re</word>
+  <word key="snau_index_15" js="0">Shutterstock</word>
+  <word key="snau_index_16" js="0">FAKKU</word>
+  <word key="snau_index_18" js="0">H-Misc</word>
+  <word key="snau_index_19" js="0">2D-Market</word>
+  <word key="snau_index_20" js="0">MediBang</word>
+  <word key="snau_index_21" js="0">Anime</word>
+  <word key="snau_index_22" js="0">H-Anime</word>
+  <word key="snau_index_23" js="0">Movies</word>
+  <word key="snau_index_24" js="0">Shows</word>
+  <word key="snau_index_25" js="0">Gelbooru</word>
+  <word key="snau_index_26" js="0">Konachan</word>
+  <word key="snau_index_27" js="0">Sankaku Channel</word>
+  <word key="snau_index_28" js="0">Anime-Pictures.net</word>
+  <word key="snau_index_29" js="0">e621.net</word>
+  <word key="snau_index_30" js="0">Idol Complex</word>
+  <word key="snau_index_31" js="0">bcy.net Illust</word>
+  <word key="snau_index_32" js="0">bcy.net Cosplay</word>
+  <word key="snau_index_33" js="0">PortalGraphics.net (Hist)</word>
+  <word key="snau_index_34" js="0">deviantArt</word>
+  <word key="snau_index_35" js="0">Pawoo.net</word>
+  <word key="snau_index_36" js="0">Madokami (Manga)</word>
+  <word key="snau_index_37" js="0">MangaDex</word>
+  <word key="menu__saucenao_saucenao" js="0">SauceNao</word>
+  <word key="menu__saucenao_saucenao_settings" js="0">Settings</word>
+  <word key="snau_api_settings" js="0">API Settings</word>
+  <word key="snau_api_key" js="0">API key</word>
+  <word key="snau_api_key_desc" js="0"><![CDATA[You can register for an API key here: <br><a href="https://saucenao.com/user.php" target="_blank" rel="noopener">https://saucenao.com/user.php</a>]]></word>
+  <word key="snau_min_similarity" js="0">Minimum similarity</word>
+  <word key="snau_artist" js="0">Artist</word>
+  <word key="snau_illust_id" js="0">Illustration ID</word>
+  <word key="snau_title" js="0">%s's other works</word>
+  <word key="snau_count" js="0">This artist has {# [1:image][?:images]} in our gallery</word>
+  <word key="snau_view" js="0">View {# more [1:image][?:images]}</word>
+ </app>
+</language>

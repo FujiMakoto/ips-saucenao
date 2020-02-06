@@ -2,6 +2,12 @@
     "front": {
         "sauce": {
             "default_controller": "",
+            "protected": 0
+        }
+    },
+    "admin": {
+        "saucenao": {
+            "default_controller": "",
             "protected": false
         }
     }

@@ -155,6 +155,34 @@
                 "unsigned": true,
                 "values": [],
                 "zerofill": false
+            },
+            "seo_index": {
+                "name": "seo_index",
+                "type": "VARCHAR",
+                "length": 255,
+                "decimals": null,
+                "values": null,
+                "allow_null": true,
+                "default": null,
+                "comment": "Cached SEO title for the index",
+                "unsigned": false,
+                "zerofill": false,
+                "auto_increment": false,
+                "binary": false
+            },
+            "seo_author": {
+                "name": "seo_author",
+                "type": "VARCHAR",
+                "length": 255,
+                "decimals": null,
+                "values": null,
+                "allow_null": true,
+                "default": null,
+                "comment": "Cached SEO title for the author",
+                "unsigned": false,
+                "zerofill": false,
+                "auto_increment": false,
+                "binary": false
             }
         },
         "indexes": {

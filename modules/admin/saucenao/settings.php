@@ -57,6 +57,4 @@ class _settings extends \IPS\Dispatcher\Controller
 
 		\IPS\Output::i()->output = (string) $form;
 	}
-	
-	// Create new methods with the same name as the 'do' parameter which should execute it
 }
