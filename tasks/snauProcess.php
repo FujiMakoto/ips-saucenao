@@ -69,7 +69,8 @@ class _snauProcess extends \IPS\Task
             $image = Image::constructFromData( $image );
             try
             {
-                $sauce = SauceNaoApi::i()->fromUrl( File::get( 'gallery_Images', $image->masked_file_name )->url );
+                $sauce = new SauceNaoApi;
+                $sauce = $sauce->fromUrl( File::get( 'gallery_Images', $image->masked_file_name )->url );
             }
             catch ( ApiLimitException $e )
             {
