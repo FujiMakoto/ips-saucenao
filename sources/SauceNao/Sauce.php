@@ -7,6 +7,7 @@ namespace IPS\saucenao\SauceNao;
 use IPS\Db;
 use IPS\gallery\Image;
 use IPS\Member;
+use IPS\Settings;
 
 if ( !defined( '\IPS\SUITE_UNIQUE_KEY' ) )
 {
@@ -130,6 +131,12 @@ class _Sauce extends \IPS\Patterns\ActiveRecord
 
         $sauce->similarity  = \round( $header['similarity'] );
         $sauce->index_id    = $header['index_id'];
+
+        // Just kidding, make sure we meet our minimum similarity threshold first
+        if ( $sauce->similarity < Settings::i()->snau_min_similarity )
+        {
+            $sauce->save();
+        }
 
         // Original title
         if ( isset( $data['title'] ) )
