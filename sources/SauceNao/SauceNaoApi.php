@@ -26,6 +26,12 @@ class _SauceNaoApi extends \IPS\Patterns\Singleton
     const ENDPOINT = 'https://saucenao.com/search.php';
 
     /**
+     * @brief	Singleton Instances
+     * @note	This needs to be declared in any child classes as well, only declaring here for editor code-complete/error-check functionality
+     */
+    protected static $instance = NULL;
+
+    /**
      * @var Url
      */
     protected $endpoint;
