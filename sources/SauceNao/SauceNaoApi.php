@@ -64,7 +64,7 @@ class _SauceNaoApi extends \IPS\Patterns\Singleton
     public function fromUrl( string $url )
     {
         /** @var Curl $request */
-        $request = $this->endpoint->setQueryString( 'url', $url )->request();
+        $request = $this->endpoint->setQueryString( 'url', $url )->request( \IPS\LONG_REQUEST_TIMEOUT );
 
         $response = $request->get();
         $this->checkStatusCode( $response->httpResponseCode, $response->decodeJson() );
@@ -104,7 +104,7 @@ class _SauceNaoApi extends \IPS\Patterns\Singleton
         // Unknown error
         elseif ( $statusCode !== 200 )
         {
-            throw new SauceNaoException( 'node_error', $statusCode );
+            throw new SauceNaoException( $response, $statusCode );
         }
     }
 
