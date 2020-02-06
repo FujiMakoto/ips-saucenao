@@ -11,7 +11,6 @@ if ( !defined( '\IPS\SUITE_UNIQUE_KEY' ) )
 
 use IPS\Http\Request\Curl;
 use IPS\Http\Url;
-use IPS\Patterns\Singleton;
 use IPS\saucenao\Exception\ApiKeyException;
 use IPS\saucenao\Exception\ApiLimitException;
 use IPS\saucenao\Exception\FileSizeException;
@@ -22,7 +21,7 @@ use IPS\Settings;
  * SauceNao API library
  * @package	IPS\saucenao
  */
-class _SauceNaoApi extends Singleton
+class _SauceNaoApi extends \IPS\Patterns\Singleton
 {
     const ENDPOINT = 'https://saucenao.com/search.php';
 
@@ -68,7 +67,7 @@ class _SauceNaoApi extends Singleton
         $request = $this->endpoint->setQueryString( 'url', $url )->request();
 
         $response = $request->get();
-        $this->checkStatusCode( $response->httpResponseCode );
+        $this->checkStatusCode( $response->httpResponseCode, $response->decodeJson() );
         $this->checkResponse( $response->decodeJson() );
 
         return $response->decodeJson();
@@ -76,13 +75,15 @@ class _SauceNaoApi extends Singleton
 
     /**
      * Check the HTTP status code and throw an exception if an error occurred
-     * @param int $statusCode
+     *
+     * @param int   $statusCode
+     * @param array $response
      * @throws ApiKeyException
      * @throws ApiLimitException
      * @throws FileSizeException
      * @throws SauceNaoException
      */
-    public function checkStatusCode( int $statusCode )
+    public function checkStatusCode( int $statusCode, array $response )
     {
         // Bad API key
         if ( $statusCode === 403 )
@@ -93,7 +94,7 @@ class _SauceNaoApi extends Singleton
         // API limit exceeded
         elseif ( $statusCode === 429 )
         {
-            throw new ApiLimitException();
+            throw new ApiLimitException( $response['header']['message'] );
         }
         // File too large
         elseif ( $statusCode === 413 )
