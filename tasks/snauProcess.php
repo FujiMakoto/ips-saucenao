@@ -63,7 +63,7 @@ class _snauProcess extends \IPS\Task
         $existingIds = \iterator_to_array( $snauSelect );
         $where = $existingIds ? [ \IPS\Db::i()->in( 'image_id', $existingIds, TRUE ) ] : NULL;
 
-        $gallerySelect = \IPS\Db::i()->select( '*', Image::$databaseTable, $where, NULL, 15 );
+        $gallerySelect = \IPS\Db::i()->select( '*', Image::$databaseTable, $where, 'image_id DESC', 15 );
         foreach ( $gallerySelect as $image )
         {
             $image = Image::constructFromData( $image );
