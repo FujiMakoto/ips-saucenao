@@ -74,14 +74,14 @@ class _snauProcess extends \IPS\Task
             }
             catch ( ApiLimitException $e )
             {
-                if ( \strpos( (string) $e, 'searches every 30 seconds') )
+                if ( \strpos( $e->getMessage(), 'searches every 30 seconds') )
                 {
-                    return '30 second API limit reached';
+                    return $e->getMessage();
                 }
 
-                $sleepUntil = \time() + 21600;
+                $sleepUntil = \time() + 10800;
                 \IPS\Data\Store::i()->snau_sleep = $sleepUntil;
-                return 'Daily limit reached, locking task for 6 hours';
+                return $e->getMessage();
             }
             catch ( FileSizeException $e )
             {
@@ -89,7 +89,9 @@ class _snauProcess extends \IPS\Task
             }
             catch ( SauceNaoException $e )
             {
-                return "An unknown error occurred looking up image {$image->image_id}";
+                Sauce::createFromResponse( ['header' => ['results_returned' => 0]], $image );
+//                return "An unknown error occurred looking up image {$image->id}";
+                continue;
             }
 
             Sauce::createFromResponse( $sauce, $image );
