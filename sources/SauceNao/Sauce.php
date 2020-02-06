@@ -122,19 +122,48 @@ class _Sauce extends \IPS\Patterns\ActiveRecord
             return $sauce;
         }
 
-        // Otherwise, get the first result and save it
-        $header = $response['results'][0]['header'];
-        $data   = $response['results'][0]['data'];
-
-        $sauce->similarity  = \round( $header['similarity'] );
-        $sauce->index_id    = $header['index_id'];
-
-        // Just kidding, make sure we meet our minimum similarity threshold first
-        if ( $sauce->similarity < Settings::i()->snau_min_similarity )
+        // Filter results that don't meet the similarity threshold
+        $results = [];
+        foreach ( $response['results'] as $result )
         {
+            if ( $result['header']['similarity'] < Settings::i()->snau_min_similarity )
+            {
+                continue;
+            }
+
+            $results[] = $result;
+        }
+
+        // No results? End it here then.
+        if ( !$results )
+        {
+            $header = $response['results'][0]['header'];
+
+            $sauce->similarity  = \round( $header['similarity'] );
+            $sauce->index_id    = $header['index_id'];
+
             $sauce->save();
             return $sauce;
         }
+
+        // Pixiv is the priority result, so get that if we have it.
+        $bestResult = NULL;
+        foreach ( $results as $result )
+        {
+            if ( ( $result['header']['index_id'] == 5 ) or ( $result['header']['index_id'] == 6 ) )
+            {
+                $bestResult = $result;
+                break;
+            }
+        }
+        $bestResult = $bestResult ?: $results[0];
+
+        // Now that we have a result, split the data and header to make things easier
+        $header = $bestResult['header'];
+        $data   = $bestResult['data'];
+
+        $sauce->similarity  = \round( $header['similarity'] );
+        $sauce->index_id    = $header['index_id'];
 
         // Original title
         if ( isset( $data['title'] ) )
