@@ -382,18 +382,7 @@ class _Sauce extends \IPS\Patterns\ActiveRecord
 
         if( !isset( $this->_url[ $_key ] ) )
         {
-            $seoTitleColumn = static::$seoTitleColumn;
-
-            try
-            {
-                $urlBase = \str_replace( '{index_id}', $this->index_id, static::$urlBase );
-                $urlBase = \str_replace( '{author_id}', $this->author_id, $urlBase );
-                $url = \IPS\Http\Url::internal(
-                    $urlBase, 'front', static::$urlTemplate,
-                    [ $this->seo_index, $this->seo_author ]
-                );
-            }
-            catch ( \IPS\Http\Url\Exception $e )
+            if ( !$this->seo_index )
             {
                 $indexTitle = \IPS\Lang::load( \IPS\Lang::defaultLanguage() )->get( "snau_index_{$this->index_id}" );
                 $indexSeo   = \IPS\Http\Url\Friendly::seoTitle( $indexTitle );
@@ -402,9 +391,14 @@ class _Sauce extends \IPS\Patterns\ActiveRecord
                 $this->seo_index  = $indexSeo;
                 $this->seo_author = $authorSeo;
                 $this->save();
-
-                return $this->url( $action );
             }
+
+            $urlBase = \str_replace( '{index_id}', $this->index_id, static::$urlBase );
+            $urlBase = \str_replace( '{author_id}', $this->author_id, $urlBase );
+            $url = \IPS\Http\Url::internal(
+                $urlBase, 'front', static::$urlTemplate,
+                [ $this->seo_index, $this->seo_author ]
+            );
 
             $this->_url[ $_key ] = $url;
 
