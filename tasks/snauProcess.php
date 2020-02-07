@@ -64,6 +64,8 @@ class _snauProcess extends \IPS\Task
         $where = $existingIds ? [ \IPS\Db::i()->in( 'image_id', $existingIds, TRUE ) ] : NULL;
 
         $gallerySelect = \IPS\Db::i()->select( '*', Image::$databaseTable, $where, 'image_id DESC', 15 );
+
+        $errors = [];
         foreach ( $gallerySelect as $image )
         {
             $image = Image::constructFromData( $image );
@@ -84,16 +86,22 @@ class _snauProcess extends \IPS\Task
             }
             catch ( FileSizeException $e )
             {
-                return "Image {$image->image_id} too large to lookup, skipping";
+                $errors[] = "Image {$image->image_id} is too large to lookup, skipping";
+                continue;
             }
             catch ( SauceNaoException $e )
             {
                 Sauce::createFromResponse( ['header' => ['results_returned' => 0]], $image );
-//                return "An unknown error occurred looking up image {$image->id}";
+                $errors[] = "An unknown error occurred looking up image {$image->id}";
                 continue;
             }
 
             Sauce::createFromResponse( $sauce, $image );
+
+            if ( $errors )
+            {
+                return \join( "<br>", $errors );
+            }
         }
 	}
 	
