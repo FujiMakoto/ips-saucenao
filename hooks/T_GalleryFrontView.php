@@ -16,7 +16,7 @@ public static function hookData() {
   array (
     0 => 
     array (
-      'selector' => '#elGalleryImageStats > div.ipsBox.ipsPad[data-role=\'imageStats\']',
+      'selector' => '#elGalleryImageStats > div[data-role=\'imageStats\']',
       'type' => 'add_after',
       'content' => '{{if $sauce = \IPS\saucenao\SauceNao\Sauce::loadItemSauce($image)}}
   <div id="snauAuthorStats" class="ipsBox ipsPad">
