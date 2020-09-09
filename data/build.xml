@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<build>
+ <module key="front/sauce"><![CDATA[{"default_controller":"","protected":0}]]></module>
+ <module key="admin/saucenao"><![CDATA[{"default_controller":"","protected":false}]]></module>
+ <task frequency="P0Y0M0DT0H2M0S">snauProcess</task>
+ <setting key="snau_api_key"><![CDATA[{"key":"snau_api_key","default":""}]]></setting>
+ <setting key="snau_min_similarity"><![CDATA[{"key":"snau_min_similarity","default":"75"}]]></setting>
+ <hook key="C_GalleryFrontView"><![CDATA[{"type":"C","class":"\\IPS\\gallery\\modules\\front\\gallery\\view"}]]></hook>
+ <hook key="T_GalleryFrontView"><![CDATA[{"type":"S","class":"\\IPS\\Theme\\class_gallery_front_view"}]]></hook>
+</build>

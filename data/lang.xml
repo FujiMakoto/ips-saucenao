@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <language>
- <app key="saucenao" version="10001">
+ <app key="saucenao" version="10003">
   <word key="__app_saucenao" js="0">SauceNao</word>
   <word key="module__saucenao_sauce" js="0">Sauce</word>
   <word key="snau_index_0" js="0">H-Magazines</word>
